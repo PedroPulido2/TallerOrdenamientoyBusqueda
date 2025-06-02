@@ -16,5 +16,35 @@ namespace TallerOrdenamientoyBusqueda
         {
             InitializeComponent();
         }
+
+        private void btnOrdenamiento_Click(object sender, EventArgs e)
+        {
+            SubmenuOrd.Visible=true;
+        }
+
+        private void btnQuickSort_Click(object sender, EventArgs e)
+        {
+            SubmenuOrd.Visible = false;
+        }
+
+        private void btnBubbleSort_Click(object sender, EventArgs e)
+        {
+            SubmenuOrd.Visible = false;
+        }
+
+        private void btnBusqueda_Click(object sender, EventArgs e)
+        {
+            SubmenuBusqueda.Visible = true;
+        }
+
+        private void btnBinaria_Click(object sender, EventArgs e)
+        {
+            SubmenuBusqueda.Visible=false;
+        }
+
+        private void btnJumpSearch_Click(object sender, EventArgs e)
+        {
+            SubmenuBusqueda.Visible=false;
+        }
     }
 }
