@@ -195,7 +195,7 @@
             this.panelContainer.BackColor = System.Drawing.Color.AliceBlue;
             this.panelContainer.Location = new System.Drawing.Point(0, 234);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(1378, 636);
+            this.panelContainer.Size = new System.Drawing.Size(1378, 700);
             this.panelContainer.TabIndex = 2;
             // 
             // SubmenuBusqueda
@@ -341,6 +341,7 @@
             this.Controls.Add(this.panelTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Algoritmos de Ordenamiento y Busqueda";
             this.panelTitulo.ResumeLayout(false);
             this.panelTitulo.PerformLayout();
