@@ -13,7 +13,7 @@ namespace TallerOrdenamientoyBusqueda
 {
     public partial class GenerarDatos : Form
     {
-        int[] listRamdom;
+        int[] listRamdom, listDataLOrdAsc, listDataLOrdDsc, listOrd;
         int size;
         int minValue, maxValue;
 
@@ -28,27 +28,79 @@ namespace TallerOrdenamientoyBusqueda
             maxValue = Convert.ToInt32(txtMaxValue.Text);
             size = Convert.ToInt32(txtSize.Text);
 
-            //1. Datos aleatorios:
+            // 1. Datos aleatorios:
             listRamdom = GenerarDatosAleatorios(size, minValue, maxValue);
+            DatosGlobales.DatosGenerados = listRamdom; // Copiar datos generados
             LlenarCharter(chtData, listRamdom);
 
-            //2. Datos levemente ordenados de forma ascendente en 5 grupos.
-            var grupoAsc = GenerarDatosLevementeOrdenadosAsc(listRamdom, 5);
-            int[] datosLOA = grupoAsc.SelectMany(x => x).ToArray();
-            LlenarCharter(chtLOA, datosLOA);
+            // 2. Datos levemente ordenados de forma ascendente en 5 grupos.
+            listDataLOrdAsc = GenerarDatosLOrdAsc(size, minValue, maxValue, listRamdom);
+            DatosGlobales.DatosLOA = listDataLOrdAsc; // Copiar datos levemente ordenados
+            LlenarCharter(chtLOA, listDataLOrdAsc);
 
-            //3. Datos levemente ordenados de forma descendente
-            var gruposDesc = GenerarDatosLevementeOrdenadosDesc(listRamdom, 5);
-            int[] datosLOD = gruposDesc.SelectMany(x => x).ToArray();
-
-            Array.Sort(datosLOD);
-            Array.Reverse(datosLOD);
-            LlenarCharter(chtLOD, datosLOD);
+            // 3. Datos levemente ordenados de forma descendente
+            listDataLOrdDsc = GenerarDatosLOrdDsc(size, minValue, maxValue, listRamdom);
+            DatosGlobales.DatosLOD = listDataLOrdDsc; // Copiar datos levemente ordenados descendente
+            LlenarCharter(chtLOD, listDataLOrdDsc);
 
             // 4. Datos completamente ordenados ascendente a partir de listRamdom
-            int[] datosOA = GenerarDatosOrdenadosAsc(listRamdom);
-            LlenarCharter(chtOA, datosOA);
+            listOrd = GenerarDatosOrdenadosAsc(listRamdom);
+            DatosGlobales.DatosOA = listOrd; // Copiar datos ordenados ascendentemente
+            LlenarCharter(chtOA, listOrd);
         }
+
+        private int[] GenerarDatosLOrdAsc(int size, int minValue, int maxValue, int[] lisRamdom)
+        {
+            int[] datos = new int[size];
+
+            int grupoSize = size / 5; // Dividir en 5 grupos
+
+            listRamdom.CopyTo(datos, 0);
+
+            for (int i = 0; i < 5; i++)
+            {
+                int startIndex = i * grupoSize;
+                int endIndex = (i + 1) * grupoSize;
+
+                if (i == 4) // Asegurar que el último grupo incluya todos los elementos restantes
+                {
+                    endIndex = size;
+                }
+
+                Array.Sort(datos, startIndex, endIndex - startIndex);
+            }
+
+            return datos;
+        }
+
+        private int[] GenerarDatosLOrdDsc(int size, int minValue, int maxValue, int[] listRamdom)
+        {
+            int[] datos = new int[size];
+
+            int groupSize = size / 5;
+
+            listRamdom.CopyTo(datos, 0);
+
+            for (int i = 0; i < 5; i++)
+            {
+                int startIndex = i * groupSize;
+                int endIndex = (i + 1) * groupSize;
+
+                if (i == 4)
+                {
+                    endIndex = size;
+                }
+
+                // Ordena cada grupo de manera ascendente
+                Array.Sort(datos, startIndex, endIndex - startIndex);
+
+                // Luego, invierte cada grupo para que quede en orden descendente
+                Array.Reverse(datos, startIndex, endIndex - startIndex);
+            }
+
+            return datos;
+        }
+
         private void LlenarCharter(Chart chart, int[] datos)
         {
             chart.Series[0].Points.Clear();
@@ -57,6 +109,31 @@ namespace TallerOrdenamientoyBusqueda
                 chart.Series[0].Points.AddXY(i, datos[i]);
             }
         }
+
+        public void MostrarDatosEnChart()
+        {
+            // Asegúrate de que los datos existan
+            if (DatosGlobales.DatosGenerados != null && DatosGlobales.DatosGenerados.Length > 0)
+            {
+                LlenarCharter(chtData, DatosGlobales.DatosGenerados);
+            }
+
+            if (DatosGlobales.DatosLOA != null && DatosGlobales.DatosLOA.Length > 0)
+            {
+                LlenarCharter(chtLOA, DatosGlobales.DatosLOA);
+            }
+
+            if (DatosGlobales.DatosLOD != null && DatosGlobales.DatosLOD.Length > 0)
+            {
+                LlenarCharter(chtLOD, DatosGlobales.DatosLOD);
+            }
+
+            if (DatosGlobales.DatosOA != null && DatosGlobales.DatosOA.Length > 0)
+            {
+                LlenarCharter(chtOA, DatosGlobales.DatosOA);
+            }
+        }
+
         private int[] GenerarDatosAleatorios(int size, int minValue, int maxValue)
         {
             Random random = new Random();
@@ -66,86 +143,6 @@ namespace TallerOrdenamientoyBusqueda
                 datos[i] = random.Next(minValue, maxValue);
             }
             return datos;
-        }
-
-        private List<int[]> GenerarDatosLevementeOrdenadosAsc(int[] baseDatos, int grupos)
-        {
-            List<int[]> resultado = new List<int[]>();
-            int size = baseDatos.Length;
-            int tamañoxGrupo = size / grupos;
-
-            //Ordenar baseDatos para facilitar la division en rangos
-            int[] baseOrdenada = (int[])baseDatos.Clone();
-            Array.Sort(baseOrdenada);
-
-            for (int i = 0; i < grupos; i++)
-            {
-                //rango del grupo g
-                int inicio = i * tamañoxGrupo;
-                int fin = (i == grupos - 1) ? size : inicio + tamañoxGrupo;
-
-                int[] grupoDatos = new int[fin - inicio];
-                Array.Copy(baseOrdenada, inicio, grupoDatos, 0, fin - inicio);
-
-                //perturbar ligeramente para que sea levemente ordenado ascendentemente
-                grupoDatos = PerturbarDatos(grupoDatos, leve: true);
-
-                //Asegura orden ascendente (con perturbacion)
-                Array.Sort(grupoDatos);
-
-                resultado.Add(grupoDatos);
-            }
-            return resultado;
-        }
-        private int[] PerturbarDatos(int[] datos, bool leve)
-        {
-            // Perturba un poco los datos para que no estén completamente ordenados
-            Random rnd = new Random();
-            int n = datos.Length;
-
-            // Número de swaps dependiendo si es leve o no
-            int numSwaps = leve ? n / 10 : n / 3;
-
-            for (int i = 0; i < numSwaps; i++)
-            {
-                int idx1 = rnd.Next(n);
-                int idx2 = rnd.Next(n);
-                // Intercambia dos valores para perturbar el orden
-                int temp = datos[idx1];
-                datos[idx1] = datos[idx2];
-                datos[idx2] = temp;
-            }
-            return datos;
-        }
-
-        private List<int[]> GenerarDatosLevementeOrdenadosDesc(int[] baseDatos, int grupos)
-        {
-            List<int[]> resultado = new List<int[]>();
-            int size = baseDatos.Length;
-            int tamañoPorGrupo = size / grupos;
-
-            int[] baseOrdenada = (int[])baseDatos.Clone();
-            Array.Sort(baseOrdenada);
-
-            for (int g = 0; g < grupos; g++)
-            {
-                int inicio = g * tamañoPorGrupo;
-                int fin = (g == grupos - 1) ? size : inicio + tamañoPorGrupo;
-
-                int[] grupoDatos = new int[fin - inicio];
-                Array.Copy(baseOrdenada, inicio, grupoDatos, 0, fin - inicio);
-
-                // Perturbar ligeramente
-                grupoDatos = PerturbarDatos(grupoDatos, leve: true);
-
-                // Orden descendente
-                Array.Sort(grupoDatos);
-                Array.Reverse(grupoDatos);
-
-                resultado.Add(grupoDatos);
-            }
-
-            return resultado;
         }
 
         private int[] GenerarDatosOrdenadosAsc(int[] baseDatos)

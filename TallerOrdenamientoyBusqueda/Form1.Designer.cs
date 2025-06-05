@@ -40,11 +40,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnGenerarDatos = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
-            this.SubmenuBusqueda = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.btnBinaria = new System.Windows.Forms.Button();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.btnJumpSearch = new System.Windows.Forms.Button();
             this.SubmenuOrd = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnQuickSort = new System.Windows.Forms.Button();
@@ -53,7 +48,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.panelTitulo.SuspendLayout();
             this.panelAcciones.SuspendLayout();
-            this.SubmenuBusqueda.SuspendLayout();
             this.SubmenuOrd.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +59,7 @@
             this.panelTitulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitulo.Location = new System.Drawing.Point(0, 0);
             this.panelTitulo.Name = "panelTitulo";
-            this.panelTitulo.Size = new System.Drawing.Size(1378, 80);
+            this.panelTitulo.Size = new System.Drawing.Size(1720, 80);
             this.panelTitulo.TabIndex = 0;
             // 
             // Titulo
@@ -92,7 +86,7 @@
             this.panelAcciones.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAcciones.Location = new System.Drawing.Point(0, 80);
             this.panelAcciones.Name = "panelAcciones";
-            this.panelAcciones.Size = new System.Drawing.Size(1378, 70);
+            this.panelAcciones.Size = new System.Drawing.Size(1720, 70);
             this.panelAcciones.TabIndex = 1;
             // 
             // panel4
@@ -138,7 +132,7 @@
             this.btnBusqueda.Name = "btnBusqueda";
             this.btnBusqueda.Size = new System.Drawing.Size(361, 70);
             this.btnBusqueda.TabIndex = 4;
-            this.btnBusqueda.Text = "Busqueda";
+            this.btnBusqueda.Text = "Busqueda (Binaria y Jump)";
             this.btnBusqueda.UseVisualStyleBackColor = false;
             this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
             // 
@@ -195,68 +189,8 @@
             this.panelContainer.BackColor = System.Drawing.Color.AliceBlue;
             this.panelContainer.Location = new System.Drawing.Point(0, 234);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(1378, 700);
+            this.panelContainer.Size = new System.Drawing.Size(1742, 700);
             this.panelContainer.TabIndex = 2;
-            // 
-            // SubmenuBusqueda
-            // 
-            this.SubmenuBusqueda.Controls.Add(this.panel8);
-            this.SubmenuBusqueda.Controls.Add(this.btnBinaria);
-            this.SubmenuBusqueda.Controls.Add(this.panel9);
-            this.SubmenuBusqueda.Controls.Add(this.btnJumpSearch);
-            this.SubmenuBusqueda.Location = new System.Drawing.Point(615, 3);
-            this.SubmenuBusqueda.Name = "SubmenuBusqueda";
-            this.SubmenuBusqueda.Size = new System.Drawing.Size(351, 79);
-            this.SubmenuBusqueda.TabIndex = 10;
-            this.SubmenuBusqueda.Visible = false;
-            // 
-            // panel8
-            // 
-            this.panel8.BackColor = System.Drawing.Color.Black;
-            this.panel8.Location = new System.Drawing.Point(195, 70);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(153, 5);
-            this.panel8.TabIndex = 9;
-            // 
-            // btnBinaria
-            // 
-            this.btnBinaria.BackColor = System.Drawing.Color.LightBlue;
-            this.btnBinaria.FlatAppearance.BorderSize = 0;
-            this.btnBinaria.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Azure;
-            this.btnBinaria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBinaria.ForeColor = System.Drawing.Color.Black;
-            this.btnBinaria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBinaria.Location = new System.Drawing.Point(39, 0);
-            this.btnBinaria.Name = "btnBinaria";
-            this.btnBinaria.Size = new System.Drawing.Size(158, 70);
-            this.btnBinaria.TabIndex = 8;
-            this.btnBinaria.Text = "Binaria";
-            this.btnBinaria.UseVisualStyleBackColor = false;
-            this.btnBinaria.Click += new System.EventHandler(this.btnBinaria_Click);
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.Color.Black;
-            this.panel9.Location = new System.Drawing.Point(39, 65);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(158, 10);
-            this.panel9.TabIndex = 9;
-            // 
-            // btnJumpSearch
-            // 
-            this.btnJumpSearch.BackColor = System.Drawing.Color.LightBlue;
-            this.btnJumpSearch.FlatAppearance.BorderSize = 0;
-            this.btnJumpSearch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Azure;
-            this.btnJumpSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnJumpSearch.ForeColor = System.Drawing.Color.Black;
-            this.btnJumpSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJumpSearch.Location = new System.Drawing.Point(194, -3);
-            this.btnJumpSearch.Name = "btnJumpSearch";
-            this.btnJumpSearch.Size = new System.Drawing.Size(154, 74);
-            this.btnJumpSearch.TabIndex = 8;
-            this.btnJumpSearch.Text = "Jump Search";
-            this.btnJumpSearch.UseVisualStyleBackColor = false;
-            this.btnJumpSearch.Click += new System.EventHandler(this.btnJumpSearch_Click);
             // 
             // SubmenuOrd
             // 
@@ -286,7 +220,7 @@
             this.btnQuickSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuickSort.ForeColor = System.Drawing.Color.Black;
             this.btnQuickSort.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnQuickSort.Location = new System.Drawing.Point(0, 0);
+            this.btnQuickSort.Location = new System.Drawing.Point(3, 0);
             this.btnQuickSort.Name = "btnQuickSort";
             this.btnQuickSort.Size = new System.Drawing.Size(158, 70);
             this.btnQuickSort.TabIndex = 8;
@@ -321,12 +255,11 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.AliceBlue;
-            this.panel5.Controls.Add(this.SubmenuBusqueda);
             this.panel5.Controls.Add(this.SubmenuOrd);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 150);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1378, 86);
+            this.panel5.Size = new System.Drawing.Size(1720, 86);
             this.panel5.TabIndex = 11;
             // 
             // Form1
@@ -334,7 +267,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1378, 869);
+            this.ClientSize = new System.Drawing.Size(1720, 869);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panelAcciones);
@@ -343,10 +276,10 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Algoritmos de Ordenamiento y Busqueda";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panelTitulo.ResumeLayout(false);
             this.panelTitulo.PerformLayout();
             this.panelAcciones.ResumeLayout(false);
-            this.SubmenuBusqueda.ResumeLayout(false);
             this.SubmenuOrd.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -372,11 +305,6 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnBubbleSort;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel SubmenuBusqueda;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Button btnBinaria;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Button btnJumpSearch;
         private System.Windows.Forms.Panel panel5;
     }
 }

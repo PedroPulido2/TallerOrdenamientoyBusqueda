@@ -47,6 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusquedaBinaria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BusquedaBinaria.Designer.cs">
+      <DependentUpon>BusquedaBinaria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatosGlobales.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,13 +66,34 @@
     <Compile Include="GenerarDatos.Designer.cs">
       <DependentUpon>GenerarDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrdenamientoBubbleSort.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrdenamientoBubbleSort.Designer.cs">
+      <DependentUpon>OrdenamientoBubbleSort.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrdenamientoQuickSort.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrdenamientoQuickSort.Designer.cs">
+      <DependentUpon>OrdenamientoQuickSort.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BusquedaBinaria.resx">
+      <DependentUpon>BusquedaBinaria.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarDatos.resx">
       <DependentUpon>GenerarDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrdenamientoBubbleSort.resx">
+      <DependentUpon>OrdenamientoBubbleSort.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrdenamientoQuickSort.resx">
+      <DependentUpon>OrdenamientoQuickSort.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
