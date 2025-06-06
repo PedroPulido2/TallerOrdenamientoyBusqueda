@@ -81,24 +81,28 @@ namespace TallerOrdenamientoyBusqueda
             DatosGlobales.DatosBOrd = listBOrd;
             LlenarCharter(chtBDA, listBOrd);
             dtgResultados.Rows.Add("BubbleSort - Aleatorios", tiempoBOrd.ToString("F4"));
+            DatosGlobales.TiempoBOrd1 = tiempoBOrd;
 
             // 2. Levemente ordenados ascendente
             var (listBLOA, tiempoBLOA) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosLOA.Clone());
             DatosGlobales.DatosBLOA = listBLOA;
             LlenarCharter(chtBDLOA, listBLOA);
             dtgResultados.Rows.Add("BubbleSort - LO Ascendente", tiempoBLOA.ToString("F4"));
+            DatosGlobales.TiempoBOrdLOA = tiempoBLOA;
 
             // 3. Levemente ordenados descendente
             var (listBLOD, tiempoBLOD) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosLOD.Clone());
             DatosGlobales.DatosBLOD = listBLOD;
             LlenarCharter(chtBLOD, listBLOD);
             dtgResultados.Rows.Add("BubbleSort - LO Descendente", tiempoBLOD.ToString("F4"));
+            DatosGlobales.TiempoBOrdLOD = tiempoBLOD;
 
             // 4. Ordenados ascendente
             var (listBOA, tiempoBOA) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosOA.Clone());
             DatosGlobales.DatosBOA = listBOA;
             LlenarCharter(chtBO, listBOA);
             dtgResultados.Rows.Add("BubbleSort - Ordenados Asc.", tiempoBOA.ToString("F4"));
+            DatosGlobales.TiempoBOrd2 = tiempoBOA;
         }
 
         private int[] ordenarBubble(int[] lista)

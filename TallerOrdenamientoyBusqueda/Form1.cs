@@ -105,6 +105,22 @@ namespace TallerOrdenamientoyBusqueda
             (fhBusquedaBinaria as OrdenamientoBubbleSort)?.MostrarDatosEnChart();
         }
 
+        private void AbrirFormResultados(object formResultados)
+        {
+            if (this.panelContainer.Controls.Count > 0)
+                this.panelContainer.Controls.RemoveAt(0);
+
+            Form fhResultados = formResultados as Form;
+            fhResultados.TopLevel = false;
+            fhResultados.Dock = DockStyle.Fill;
+            this.panelContainer.Controls.Add(fhResultados);
+            this.panelContainer.Tag = formResultados;
+            fhResultados.Show();
+
+            // Llamar al método para mostrar los datos en los gráficos
+            (fhResultados as OrdenamientoBubbleSort)?.MostrarDatosEnChart();
+        }
+
         private void btnGenerarDatos_Click(object sender, EventArgs e)
         {
             AbrirFormGenerarDatos(new GenerarDatos());
@@ -113,6 +129,11 @@ namespace TallerOrdenamientoyBusqueda
         private void Form1_Load(object sender, EventArgs e)
         {
             AbrirFormGenerarDatos(new GenerarDatos());
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AbrirFormResultados(new Resultados());
         }
     }
 }

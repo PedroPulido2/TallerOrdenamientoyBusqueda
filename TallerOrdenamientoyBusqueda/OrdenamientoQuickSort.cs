@@ -126,24 +126,28 @@ namespace TallerOrdenamientoyBusqueda
             DatosGlobales.DatosQOrd = listQOrd;
             LlenarCharter(chtQDA, listQOrd);
             dtgResultados.Rows.Add("QuickSort (Aleatorio)", tiempoQOrd.ToString("F4"));
+            DatosGlobales.TiempoQOrd1 = tiempoQOrd;
 
             // 2. Levemente ordenados ascendente
             var (listQLOA, tiempoQLOA) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosLOA);
             DatosGlobales.DatosQLOA = listQLOA;
             LlenarCharter(chtQDLOA, listQLOA);
             dtgResultados.Rows.Add("QuickSort (LOA)", tiempoQLOA.ToString("F4"));
+            DatosGlobales.TiempoQOrdLOA = tiempoQLOA;
 
             // 3. Levemente ordenados descendente
             var (listQLOD, tiempoQLOD) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosLOD);
             DatosGlobales.DatosQLOD = listQLOD;
             LlenarCharter(chtQLOD, listQLOD);
             dtgResultados.Rows.Add("QuickSort (LOD)", tiempoQLOD.ToString("F4"));
+            DatosGlobales.TiempoQOrdLOD = tiempoQLOD;
 
             // 4. Completamente ordenados ascendente
             var (listQOA, tiempoQOA) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosOA);
             DatosGlobales.DatosQOA = listQOA;
             LlenarCharter(chtQO, listQOA);
             dtgResultados.Rows.Add("QuickSort (OA)", tiempoQOA.ToString("F4"));
+            DatosGlobales.TiempoQOrd2 = tiempoQOA;
         }
 
         private void dtgResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -192,7 +192,6 @@ namespace TallerOrdenamientoyBusqueda
             dtgResultados.Rows.Add(algoritmo, nombre, resultadoTexto, stopwatch.Elapsed.TotalMilliseconds.ToString("F4"));
 
             chtResultados.Series[0].Points.AddXY($"{nombre} {algoritmo}", stopwatch.Elapsed.TotalMilliseconds);
-
         }
 
 
