@@ -186,12 +186,38 @@ namespace TallerOrdenamientoyBusqueda
             int resultado = metodoBusqueda(datos, valorBuscado);
             stopwatch.Stop();
 
+            double tiempo = stopwatch.Elapsed.TotalMilliseconds;
             string nombre = $"{tipoBusqueda} {(string.IsNullOrEmpty(variante) ? "" : $"({variante})")}".Trim();
             string resultadoTexto = resultado == -1 ? "No encontrado" : resultado.ToString();
 
-            dtgResultados.Rows.Add(algoritmo, nombre, resultadoTexto, stopwatch.Elapsed.TotalMilliseconds.ToString("F4"));
+            // Guardar en variables globales según el tipo y variante
+            if (tipoBusqueda == "Binaria")
+            {
+                if (variante == "")
+                    DatosGlobales.TiempoBBusq1 = tiempo;
+                else if (variante == "LOA")
+                    DatosGlobales.TiempoBBusqLOA = tiempo;
+                else if (variante == "LOD")
+                    DatosGlobales.TiempoBBusqLOD = tiempo;
+                else if (variante == "OA")
+                    DatosGlobales.TiempoBBusq2 = tiempo;
+            }
+            else if (tipoBusqueda == "Jump")
+            {
+                if (variante == "")
+                    DatosGlobales.TiempoJBusq1 = tiempo;
+                else if (variante == "LOA")
+                    DatosGlobales.TiempoJBusqLOA = tiempo;
+                else if (variante == "LOD")
+                    DatosGlobales.TiempoJBusqLOD = tiempo;
+                else if (variante == "OA")
+                    DatosGlobales.TiempoJBusq2 = tiempo;
+            }
 
-            chtResultados.Series[0].Points.AddXY($"{nombre} {algoritmo}", stopwatch.Elapsed.TotalMilliseconds);
+            // Mostrar en tabla y gráfico
+            dtgResultados.Rows.Add(algoritmo, nombre, resultadoTexto, tiempo.ToString("F4"));
+            chtResultados.Series[0].Points.AddXY($"{nombre} {algoritmo}", tiempo);
+
         }
 
 

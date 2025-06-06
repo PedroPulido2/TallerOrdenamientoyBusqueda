@@ -138,12 +138,12 @@ namespace TallerOrdenamientoyBusqueda
             return lista;
         }
 
-        private (int[] resultado, long tiempoMs) MedirTiempoOrdenamiento(Func<int[], int[]> metodoOrdenamiento, int[] datos)
+        private (int[] resultado, double tiempoMs) MedirTiempoOrdenamiento(Func<int[], int[]> metodoOrdenamiento, int[] datos)
         {
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             int[] resultado = metodoOrdenamiento(datos);
             stopwatch.Stop();
-            return (resultado, stopwatch.ElapsedMilliseconds);
+            return (resultado, stopwatch.Elapsed.TotalMilliseconds);
         }
 
         private void dtgResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
