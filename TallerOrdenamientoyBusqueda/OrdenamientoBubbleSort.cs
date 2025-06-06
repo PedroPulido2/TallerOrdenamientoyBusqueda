@@ -74,26 +74,33 @@ namespace TallerOrdenamientoyBusqueda
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            // 1. Datos aleatorios a BubbleSort:
-            int[] listBOrd = ordenarBubble((int[])DatosGlobales.DatosGenerados.Clone());
+            dtgResultados.Rows.Clear(); // Limpiar resultados anteriores
+
+            // 1. Aleatorios
+            var (listBOrd, tiempoBOrd) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosGenerados.Clone());
             DatosGlobales.DatosBOrd = listBOrd;
             LlenarCharter(chtBDA, listBOrd);
+            dtgResultados.Rows.Add("BubbleSort - Aleatorios", tiempoBOrd.ToString("F4"));
 
-            // 2. Datos levemente ordenados de forma ascendente a BubbleSort:
-            int[] listBLOA = ordenarBubble((int[])DatosGlobales.DatosLOA.Clone());
+            // 2. Levemente ordenados ascendente
+            var (listBLOA, tiempoBLOA) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosLOA.Clone());
             DatosGlobales.DatosBLOA = listBLOA;
             LlenarCharter(chtBDLOA, listBLOA);
+            dtgResultados.Rows.Add("BubbleSort - LO Ascendente", tiempoBLOA.ToString("F4"));
 
-            // 3. Datos levemente ordenados de forma descendente a BubbleSort:
-            int[] listBLOD = ordenarBubble((int[])DatosGlobales.DatosLOD.Clone());
+            // 3. Levemente ordenados descendente
+            var (listBLOD, tiempoBLOD) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosLOD.Clone());
             DatosGlobales.DatosBLOD = listBLOD;
             LlenarCharter(chtBLOD, listBLOD);
+            dtgResultados.Rows.Add("BubbleSort - LO Descendente", tiempoBLOD.ToString("F4"));
 
-            // 4. Datos completamente ordenados ascendente a BubbleSort:
-            int[] listBOA = ordenarBubble((int[])DatosGlobales.DatosOA.Clone());
+            // 4. Ordenados ascendente
+            var (listBOA, tiempoBOA) = MedirTiempoOrdenamiento(ordenarBubble, (int[])DatosGlobales.DatosOA.Clone());
             DatosGlobales.DatosBOA = listBOA;
             LlenarCharter(chtBO, listBOA);
+            dtgResultados.Rows.Add("BubbleSort - Ordenados Asc.", tiempoBOA.ToString("F4"));
         }
+
         private int[] ordenarBubble(int[] lista)
         {
             int n = lista.Length;
@@ -127,5 +134,29 @@ namespace TallerOrdenamientoyBusqueda
             return lista;
         }
 
+        private (int[] resultado, long tiempoMs) MedirTiempoOrdenamiento(Func<int[], int[]> metodoOrdenamiento, int[] datos)
+        {
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            int[] resultado = metodoOrdenamiento(datos);
+            stopwatch.Stop();
+            return (resultado, stopwatch.ElapsedMilliseconds);
+        }
+
+        private void dtgResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void OrdenamientoBubbleSort_Load(object sender, EventArgs e)
+        {
+            // Agrega columnas al DataGridView si aún no existen
+            if (dtgResultados.Columns.Count == 0)
+            {
+                dtgResultados.Columns.Add("Metodo", "Método de Ordenamiento");
+                dtgResultados.Columns.Add("Tiempo", "Tiempo (ms)");
+            }
+
+            MostrarDatosEnChart();
+        }
     }
 }

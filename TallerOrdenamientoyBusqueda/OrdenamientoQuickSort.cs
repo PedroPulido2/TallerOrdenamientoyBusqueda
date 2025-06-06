@@ -119,27 +119,54 @@ namespace TallerOrdenamientoyBusqueda
         }
         private void btnGenerar2_Click(object sender, EventArgs e)
         {
-            // 1. Datos aleatorios a QuickSort:
-            int[] listQOrd = ordenarQuick((int[])DatosGlobales.DatosGenerados.Clone()); // Usar copia de los datos
-            DatosGlobales.DatosQOrd = listQOrd; // Guardar los datos ordenados
+            dtgResultados.Rows.Clear();
+
+            // 1. Datos aleatorios
+            var (listQOrd, tiempoQOrd) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosGenerados);
+            DatosGlobales.DatosQOrd = listQOrd;
             LlenarCharter(chtQDA, listQOrd);
+            dtgResultados.Rows.Add("QuickSort (Aleatorio)", tiempoQOrd.ToString("F4"));
 
-            // 2. Datos levemente ordenados de forma ascendente a QuickSort:
-            int[] listQLOA = ordenarQuick((int[])DatosGlobales.DatosLOA.Clone()); // Usar copia de los datos
-            DatosGlobales.DatosQLOA = listQLOA; // Guardar los datos ordenados
+            // 2. Levemente ordenados ascendente
+            var (listQLOA, tiempoQLOA) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosLOA);
+            DatosGlobales.DatosQLOA = listQLOA;
             LlenarCharter(chtQDLOA, listQLOA);
+            dtgResultados.Rows.Add("QuickSort (LOA)", tiempoQLOA.ToString("F4"));
 
-            // 3. Datos levemente ordenados de forma descendente a QuickSort:
-            int[] listQLOD = ordenarQuick((int[])DatosGlobales.DatosLOD.Clone()); // Usar copia de los datos
-            DatosGlobales.DatosQLOD = listQLOD; // Guardar los datos ordenados
+            // 3. Levemente ordenados descendente
+            var (listQLOD, tiempoQLOD) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosLOD);
+            DatosGlobales.DatosQLOD = listQLOD;
             LlenarCharter(chtQLOD, listQLOD);
+            dtgResultados.Rows.Add("QuickSort (LOD)", tiempoQLOD.ToString("F4"));
 
-            // 4. Datos completamente ordenados ascendente a QuickSort:
-            int[] listQOA = ordenarQuick((int[])DatosGlobales.DatosOA.Clone()); // Usar copia de los datos
-            DatosGlobales.DatosQOA = listQOA; // Guardar los datos ordenados
+            // 4. Completamente ordenados ascendente
+            var (listQOA, tiempoQOA) = MedirTiempoOrdenamiento(ordenarQuick, DatosGlobales.DatosOA);
+            DatosGlobales.DatosQOA = listQOA;
             LlenarCharter(chtQO, listQOA);
+            dtgResultados.Rows.Add("QuickSort (OA)", tiempoQOA.ToString("F4"));
         }
 
+        private void dtgResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private (int[] resultado, double tiempoMs) MedirTiempoOrdenamiento(Func<int[], int[]> metodo, int[] datos)
+        {
+            var copia = (int[])datos.Clone();
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            int[] resultado = metodo(copia);
+            sw.Stop();
+            return (resultado, sw.Elapsed.TotalMilliseconds);
+        }
+
+        private void OrdenamientoQuickSort_Load(object sender, EventArgs e)
+        {
+            dtgResultados.Columns.Add("Metodo", "Método de Ordenamiento");
+            dtgResultados.Columns.Add("Tiempo", "Tiempo (ms)");
+
+            MostrarDatosEnChart();
+        }
     }
 
 }
