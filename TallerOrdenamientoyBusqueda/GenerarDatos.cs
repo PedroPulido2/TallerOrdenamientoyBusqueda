@@ -47,6 +47,9 @@ namespace TallerOrdenamientoyBusqueda
             listOrd = GenerarDatosOrdenadosAsc(listRamdom);
             DatosGlobales.DatosOA = listOrd; // Copiar datos ordenados ascendentemente
             LlenarCharter(chtOA, listOrd);
+
+            // Mostrar estadísticas en el DataGridView
+            MostrarEstadisticas(listRamdom);
         }
 
         private int[] GenerarDatosLOrdAsc(int size, int minValue, int maxValue, int[] lisRamdom)
@@ -101,6 +104,11 @@ namespace TallerOrdenamientoyBusqueda
             return datos;
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void LlenarCharter(Chart chart, int[] datos)
         {
             chart.Series[0].Points.Clear();
@@ -151,5 +159,49 @@ namespace TallerOrdenamientoyBusqueda
             Array.Sort(resultado);
             return resultado;
         }
+
+        private void MostrarEstadisticas(int[] datos)
+        {
+            int min = datos.Min();
+            int max = datos.Max();
+            int freqMin = datos.Count(x => x == min);
+            int freqMax = datos.Count(x => x == max);
+            double promedio = datos.Average();
+            int suma = datos.Sum();
+
+            double mediana;
+            int[] ordenados = (int[])datos.Clone();
+            Array.Sort(ordenados);
+            int medio = ordenados.Length / 2;
+            if (ordenados.Length % 2 == 0)
+                mediana = (ordenados[medio - 1] + ordenados[medio]) / 2.0;
+            else
+                mediana = ordenados[medio];
+
+            // Calcular moda
+            var grupos = datos.GroupBy(x => x)
+                              .Select(g => new { Valor = g.Key, Frecuencia = g.Count() });
+            int maxFrecuencia = grupos.Max(g => g.Frecuencia);
+            var modas = grupos.Where(g => g.Frecuencia == maxFrecuencia)
+                              .Select(g => g.Valor)
+                              .ToList();
+            string modaStr = string.Join(", ", modas);
+
+            // Limpiar y agregar filas al DataGridView
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("Concepto", "Concepto");
+            dataGridView1.Columns.Add("Valor", "Valor");
+
+            dataGridView1.Rows.Add("Valor mínimo", min);
+            dataGridView1.Rows.Add("Valor máximo", max);
+            dataGridView1.Rows.Add("Frecuencia mínimo", freqMin);
+            dataGridView1.Rows.Add("Frecuencia máximo", freqMax);
+            dataGridView1.Rows.Add("Promedio", promedio.ToString("F2"));
+            dataGridView1.Rows.Add("Mediana", mediana.ToString("F2"));
+            dataGridView1.Rows.Add("Suma total", suma);
+            dataGridView1.Rows.Add("Moda", modaStr);
+        }
+
     }
 }
